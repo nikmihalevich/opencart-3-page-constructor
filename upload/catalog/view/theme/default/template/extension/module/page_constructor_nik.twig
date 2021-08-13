@@ -1,0 +1,36 @@
+{% for block in blocks %}
+  <div style="{% if block.bg_color %}background-color: {{ block.bg_color }};{% endif %}{% if block.bg_image %}background: no-repeat url('{{ block.background_image }}') {{ block.bg_color }}; background-size: cover;{% endif %}{% if block.padding %}padding: {{ block.padding }};{% endif %}">
+    <div class="row {{ block.class }}" style="{% if block.width %}margin: 0 auto; max-width: 100%; width: {{ block.width }}{% if block.width_type == "0" %}px{% else %}%{% endif %};{% else %}width: 100%;{% endif %}">
+      {% if block.grid_id == "1" %}
+        {% set colCounts = 1 %}
+      {% elseif block.grid_id == "2" or block.grid_id == "5" or block.grid_id == "6" %}
+        {% set colCounts = 2 %}
+      {% elseif block.grid_id == "3" or block.grid_id == "7" or block.grid_id == "8" or block.grid_id == "9" or block.grid_id == "12" %}
+        {% set colCounts = 3 %}
+      {% elseif block.grid_id == "4" %}
+        {% set colCounts = 4 %}
+      {% elseif block.grid_id == "10" %}
+        {% set colCounts = 5 %}
+      {% elseif block.grid_id == "11" %}
+        {% set colCounts = 6 %}
+      {% endif %}
+
+      {% set ignoredCols = [] %}
+
+      {% for colId in 1..colCounts %}
+        {% for block_data in block.blocks_data if block_data.col_id == colId %}
+
+          <div class="{% if block_data.block_grid_width_mobile or block_data.block_grid_width_tablet %}col-lg-{{ block_data.block_grid_width }}{% else %}col-xs-{{ block_data.block_grid_width }}{% endif %}{% if block_data.block_grid_width_tablet %} col-sm-{{ block_data.block_grid_width_tablet }}{% endif %}{% if block_data.block_grid_width_mobile %} col-xs-{{ block_data.block_grid_width_mobile }}{% endif %} {{ block_data.class }}" style="{% if block_data.bg_color %}background: {{ block_data.bg_color }};{% endif %}{% if block_data.bg_image %}background: no-repeat url('{{ block_data.thumb }}') {{ block_data.bg_color }}; background-size: cover;{% endif %}{% if block_data.width %}max-width: {{ block_data.width }}{% if block_data.width_type == "0" %}px{% else %}%{% endif %}; margin: 0 auto;{% endif %}{% if block_data.padding %}padding: {{ block_data.padding }};{% endif %}">
+            {% for content in block_data.contents %}
+              {% if content.type == 'text' %}
+                {{ content.value }}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+
+      {% endfor %}
+    </div>
+
+  </div>
+{% endfor %}
