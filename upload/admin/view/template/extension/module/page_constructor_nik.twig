@@ -114,7 +114,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
     position: relative;
   }
   .block-data-buttons {
@@ -344,33 +344,21 @@
                           {% for colId in 1..colCounts %}
                             {% for block_data in block.blocks_data if block_data.col_id == colId %}
 
-                              <table class="{% if block_data.block_grid_width_mobile or block_data.block_grid_width_tablet %}col-lg-{{ block_data.block_grid_width }}{% else %}col-xs-{{ block_data.block_grid_width }}{% endif %}{% if block_data.block_grid_width_tablet %} col-sm-{{ block_data.block_grid_width_tablet }}{% endif %}{% if block_data.block_grid_width_mobile %} col-xs-{{ block_data.block_grid_width_mobile }}{% endif %} block-data-table w-xs" data-col-id="{{ block_data.col_id }}" style="{% if block_data.bg_color %}background: {{ block_data.bg_color }};{% endif %}{% if block_data.bg_image %}background: no-repeat url('{{ block_data.thumb }}') {{ block_data.bg_color }}; background-size: cover;{% endif %}{% if block_data.width %}max-width: {{ block_data.width }}{% if block_data.width_type == "0" %}px{% else %}%{% endif %}; margin: 0 auto;{% endif %}">
-                                <tr>
-                                  <td style="{% if block_data.padding %}padding: {{ block_data.padding }};{% endif %}">
-                                    <table class="w-100">
-                                      {% for content in block_data.contents %}
-                                        {% if content.type == 'text' %}
-                                          <tr>
-                                            <td>
-                                              {{ content.value }}
-                                            </td>
-                                          </tr>
-                                        {% endif %}
-                                      {% endfor %}
+                              <div class="{% if block_data.block_grid_width_mobile or block_data.block_grid_width_tablet %}col-lg-{{ block_data.block_grid_width }}{% else %}col-xs-{{ block_data.block_grid_width }}{% endif %}{% if block_data.block_grid_width_tablet %} col-sm-{{ block_data.block_grid_width_tablet }}{% endif %}{% if block_data.block_grid_width_mobile %} col-xs-{{ block_data.block_grid_width_mobile }}{% endif %} block-data-table w-xs" data-col-id="{{ block_data.col_id }}" style="{% if block_data.bg_color %}background: {{ block_data.bg_color }};{% endif %}{% if block_data.bg_image %}background: no-repeat url('{{ block_data.thumb }}') {{ block_data.bg_color }}; background-size: cover;{% endif %}{% if block_data.width %}max-width: {{ block_data.width }}{% if block_data.width_type == "0" %}px{% else %}%{% endif %}; margin: 0 auto;{% endif %}">
+                                <div class="w-100" style="{% if block_data.padding %}padding: {{ block_data.padding }};{% endif %}">
+                                  {% for content in block_data.contents %}
+                                    {% if content.type == 'text' %}
+                                          {{ content.value }}
+                                    {% endif %}
+                                  {% endfor %}
 
-                                      <tr>
-                                        <td>
-                                          <div class="overlay"></div>
-                                          <div class="overlay-buttons">
-                                            <button type="button" data-toggle="modal" data-target="#addBlockDataModal" data-tooltip="tooltip" title="{{ button_edit }}" data-block-data-id="{{ block_data.id }}" class="btn btn-primary edit-block-data-btn"><i class="fa fa-pencil"></i></button>
-                                            <button type="button" data-tooltip="tooltip" title="{{ button_delete }}" data-block-data-id="{{ block_data.id }}" class="btn btn-danger delete-block-data-btn"><i class="fa fa-trash"></i></button>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                              </table>
+                                  <div class="overlay"></div>
+                                  <div class="overlay-buttons">
+                                    <button type="button" data-toggle="modal" data-target="#addBlockDataModal" data-tooltip="tooltip" title="{{ button_edit }}" data-block-data-id="{{ block_data.id }}" class="btn btn-primary edit-block-data-btn"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" data-tooltip="tooltip" title="{{ button_delete }}" data-block-data-id="{{ block_data.id }}" class="btn btn-danger delete-block-data-btn"><i class="fa fa-trash"></i></button>
+                                  </div>
+                                </div>
+                              </div>
                             {% else %}
                               <div class="block-data-inner">
                                 <button type="button" data-toggle="modal" data-target="#addBlockDataModal" data-tooltip="tooltip" title="{{ button_add }}" data-col-id="{{ colId }}" class="btn btn-success pull-right add-block-data-btn"><i class="fa fa-plus"></i></button>
@@ -500,8 +488,8 @@
           <div class="tab-pane active" id="tab-text-data">
             <div class="col-sm-12">
               <textarea name="block_data[text]" placeholder="{{ entry_description }}" id="input-block-data-text" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control"></textarea>
-              <label class="pull-left control-label" for="input-block-data-text-ordinal">{{ entry_position_data_in_block }}</label>
-              <input type="text" name="block_data[text_ordinal]" value="" placeholder="{{ entry_position_data_in_block }}" id="input-block-data-text-ordinal" class="form-control"/>
+{#              <label class="pull-left control-label" for="input-block-data-text-ordinal">{{ entry_position_data_in_block }}</label>#}
+{#              <input type="text" name="block_data[text_ordinal]" value="" placeholder="{{ entry_position_data_in_block }}" id="input-block-data-text-ordinal" class="form-control"/>#}
             </div>
           </div>
           <div class="tab-pane" id="tab-block-settings">
